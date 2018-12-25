@@ -1,5 +1,6 @@
-package com.example.master.mlife;
+package com.example.master.mlife.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,10 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.util.Date;
+import com.example.master.mlife.Fragments.CalendarFragment;
+import com.example.master.mlife.Fragments.DayScheduleFragment;
+import com.example.master.mlife.Fragments.FriendsListFragment;
+import com.example.master.mlife.Fragments.MainScheduleFragment;
+import com.example.master.mlife.Fragments.MyProfileFragment;
+import com.example.master.mlife.Fragments.NewCreateFragment;
+import com.example.master.mlife.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,8 +52,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fragmentClass=NewCreateFragment.class;
+                setTitle("New Create");
+
+                setFragment();
             }
         });
 
@@ -68,10 +76,8 @@ public class MainActivity extends AppCompatActivity
         mSaturdayLayout=(LinearLayout)findViewById(R.id.saturday_button_go);
         mSundayLayout=(LinearLayout)findViewById(R.id.sunday_button_go);
 
-
-
-
     }
+
 
     @Override
     public void onBackPressed() {
@@ -135,47 +141,63 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = MyProfileFragment.class;
         } else if (id == R.id.nav_main_schedule) {
             fragmentClass = MainScheduleFragment.class;
-        } else if (id == R.id.nav_family_list) {
-            fragmentClass = FamilyListFragment.class;
         } else if (id == R.id.nav_friends_list) {
             fragmentClass=FriendsListFragment.class;
+        }else if (id==R.id.nav_registration){
+            Intent intent = new Intent(this, RegistrationMain.class);
+            startActivity(intent);
+            return true;
         }
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        // Вставляем фрагмент, заменяя текущий фрагмент
-        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
         // Выводим выбранный пункт в заголовке
         setTitle(item.getTitle());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        setFragment();
         return true;
     }
 
+    public void setFragment(){
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Вставляем фрагмент, заменяя текущий фрагмент
+        fragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+
+    }
     public void onDayLayoutClick(View view){
         switch (view.getId()){
             case R.id.monday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.tuesday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.wednesday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.thursday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.friday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.saturday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
             case R.id.sunday_button_go:
+                fragmentClass = DayScheduleFragment.class;
                 break;
         }
-
+        setFragment();
     }
+
+
 }

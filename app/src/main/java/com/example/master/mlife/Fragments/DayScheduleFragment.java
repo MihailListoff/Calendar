@@ -1,4 +1,4 @@
-package com.example.master.mlife;
+package com.example.master.mlife.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FamilyListFragment extends Fragment {
+import com.example.master.mlife.R;
+
+public class DayScheduleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.family_list_layout, container, false);
+        return inflater.inflate(R.layout.day_schedule_layout, container, false);
     }
 }
